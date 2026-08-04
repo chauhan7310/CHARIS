@@ -77,7 +77,7 @@ export default function DashboardNavbar() {
         <div className="flex items-center gap-4">
 
           <span className="text-gray-700">
-            👋 {user?.name || user?.email || "Guest"}
+            👋 {user?.email || user?.email || "Guest"}
           </span>
 
           <button
