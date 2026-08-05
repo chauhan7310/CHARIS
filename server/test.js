@@ -1,11 +1,12 @@
-const dns = require("dns");
+const mongoose = require("mongoose");
 
-dns.resolveSrv("_mongodb._tcp.cluster0.z84vwb6.mongodb.net", (err, records) => {
-  if (err) {
-    console.log("ERROR:");
-    console.log(err);
-  } else {
-    console.log("SUCCESS:");
-    console.log(records);
-  }
+mongoose.connect(
+  "mongodb+srv://wedding-admin:Pallavi7310@cluster0.z84vwb6.mongodb.net/charis?retryWrites=true&w=majority&appName=Cluster0"
+)
+.then(() => {
+  console.log("Connected");
+  process.exit();
+})
+.catch(err => {
+  console.error(err);
 });

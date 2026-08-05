@@ -1,5 +1,3 @@
-const User = require("../models/User");
-const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 // Register
@@ -14,30 +12,13 @@ const registerUser = async (req, res) => {
       });
     }
 
-    const existingUser = await User.findOne({ email });
-
-    if (existingUser) {
-      return res.status(400).json({
-        success: false,
-        message: "User already exists",
-      });
-    }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const user = await User.create({
-      fullName,
-      email,
-      password: hashedPassword,
-    });
-
     res.status(201).json({
       success: true,
       message: "User Registered Successfully",
       data: {
-        id: user._id,
-        fullName: user.fullName,
-        email: user.email,
+        id: 1,
+        fullName,
+        email,
       },
     });
   } catch (error) {
@@ -53,31 +34,13 @@ const registerUser = async (req, res) => {
 // Login
 const loginUser = async (req, res) => {
   try {
-    const { email, password } = req.body;
-
-    const user = await User.findOne({ email });
-
-    if (!user) {
-      return res.status(401).json({
-        success: false,
-        message: "Invalid Email or Password",
-      });
-    }
-
-    const match = await bcrypt.compare(password, user.password);
-
-    if (!match) {
-      return res.status(401).json({
-        success: false,
-        message: "Invalid Email or Password",
-      });
-    }
+    const { email } = req.body;
 
     const token = jwt.sign(
       {
-        id: user._id,
+        id: 1,
       },
-      process.env.JWT_SECRET,
+      process.env.JWT_SECRET || "charis_secret_key",
       {
         expiresIn: "7d",
       }
@@ -88,9 +51,9 @@ const loginUser = async (req, res) => {
       message: "Login Successful",
       token,
       data: {
-        id: user._id,
-        fullName: user.fullName,
-        email: user.email,
+        id: 1,
+        fullName: "Demo User",
+        email,
       },
     });
   } catch (error) {

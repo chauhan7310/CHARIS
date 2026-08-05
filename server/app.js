@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
-const mongoose = require("mongoose");
+
+// const mongoose = require("mongoose");
 
 const authRoutes = require("./routes/authRoutes");
 const consultationRoutes = require("./routes/consultationRoutes");
@@ -10,17 +11,15 @@ const app = express();
 
 /* ---------------- MongoDB Connection ---------------- */
 
-mongoose
-  .connect(process.env.MONGODB_URI, {
-    family: 4,
-  })
-  .then(() => {
-    console.log("✅ MongoDB Connected Successfully");
-  })
-  .catch((err) => {
-    console.log("❌ MongoDB Connection Error");
-    console.log(err);
-  });
+// mongoose
+//   .connect(process.env.MONGODB_URI)
+//   .then(() => {
+//     console.log("✅ MongoDB Connected Successfully");
+//   })
+//   .catch((err) => {
+//     console.log("❌ MongoDB Connection Error");
+//     console.log(err);
+//   });
 
 /* ---------------- Middlewares ---------------- */
 
